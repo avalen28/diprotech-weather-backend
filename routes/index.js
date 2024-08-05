@@ -1,9 +1,9 @@
-
 const router = require("express").Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.send({message: "hello world!"});
+/* GET location info. */
+router.get("/", function (req, res, next) {
+
+  res.send({ message: "hello"});
 });
 
 module.exports = router;
