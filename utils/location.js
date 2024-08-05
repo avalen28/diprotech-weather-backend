@@ -3,7 +3,7 @@ const locationsData = require("../data/locations_ES.json");
 const turf = require("@turf/turf");
 
 class LocationService {
-  baseUrl = "api.openweathermap.org/data/2.5/forecast/daily?";
+  baseUrl = "https://api.openweathermap.org/data/2.5/forecast/daily?";
   constructor(long, lat) {
     this.long = long;
     this.lat = lat;
@@ -45,7 +45,7 @@ class LocationService {
     const [long, lat] = currentCity.location.coordinates;
     return (
       this.baseUrl +
-      `lat=${lat}&lon=${long}&appid=${process.env.WEATHER_API_KEY}`
+      `lat=${lat}&lon=${long}&cnt=10&appid=${process.env.WEATHER_API_KEY}`
     );
   }
 }

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { axios } = require("axios");
+const { default: axios } = require("axios");
 const { LocationService } = require("../utils/location");
 const { storeData } = require("../utils/storage");
 
