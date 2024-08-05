@@ -1,14 +1,15 @@
 const router = require("express").Router();
-const { areValidCoordinates } = require("../utils/location");
+const { LocationValidator } = require("../utils/location");
 
 /* GET weather data*/
 router.get("/:lat/:long", function (req, res) {
   const { lat, long } = req.params;
-  if (!areValidCoordinates(lat, long)) {
+  const locationValidator = new LocationValidator(lat,long)
+  if (!locationValidator.areValidCoordinates()) {
     res.send({ message: "invalid coordinates" });
-    return
+    return;
   }
-  res.send({ checkCoordinates });
+  res.send({ message: "valid" });
 });
 
 module.exports = router;
