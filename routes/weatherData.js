@@ -8,7 +8,7 @@ router.get("/:long/:lat", async function (req, res) {
   const locationService = new LocationService(long, lat);
 
   if (!locationService.areValidCoordinates()) {
-    res.send({ message: "invalid coordinates" });
+    res.status(400).json({ message: "Bad request: invalid coordinates" });
     return;
   }
 
@@ -18,10 +18,13 @@ router.get("/:long/:lat", async function (req, res) {
   try {
     const url = locationService.getUrl(currentCity);
     const weatherDataFromAPI = await axios.get(url);
-    res.send({ weatherData: weatherDataFromAPI, nearbyCities });
+
+    res.status(200).json({ weatherData: weatherDataFromAPI, nearbyCities });
   } catch (error) {
     console.error(error);
-    res.send({ message: "error" });
+    res
+      .status(500)
+      .json({ message: "There was an error connecting to OpenWeather API" });
   }
 });
 

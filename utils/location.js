@@ -31,7 +31,7 @@ class LocationService {
             b.location.coordinates
           )
       )
-      .slice(0, amount);
+        .slice(0, amount);
   };
 
   calculateDistanceBetweenTwoCities(firstCityCoor, secondCityCoor) {
