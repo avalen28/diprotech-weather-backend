@@ -1,17 +1,28 @@
 const router = require("express").Router();
-const { LocationValidator } = require("../utils/location");
+const { default: axios } = require("axios");
+const { LocationService } = require("../utils/location");
 
 /* GET weather data*/
-router.get("/:long/:lat", function (req, res) {
+router.get("/:long/:lat", async function (req, res) {
   const { long, lat } = req.params;
-  const locationValidator = new LocationValidator(long, lat);
-  if (!locationValidator.areValidCoordinates()) {
+  const locationService = new LocationService(long, lat);
+
+  if (!locationService.areValidCoordinates()) {
     res.send({ message: "invalid coordinates" });
     return;
   }
+
   const [currentCity, ...nearbyCities] =
-    locationValidator.findNearbyLocations(11);
-  res.send({ currentCity, nearbyCities });
+    locationService.findNearbyLocations(11);
+
+  try {
+    const url = locationService.getUrl(currentCity);
+    const weatherDataFromAPI = await axios.get(url);
+    res.send({ weatherData: weatherDataFromAPI, nearbyCities });
+  } catch (error) {
+    console.error(error);
+    res.send({ message: "error" });
+  }
 });
 
 module.exports = router;

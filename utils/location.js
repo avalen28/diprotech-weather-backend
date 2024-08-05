@@ -1,7 +1,9 @@
+require("dotenv").config();
 const locationsData = require("../data/locations_ES.json");
 const turf = require("@turf/turf");
 
-class LocationValidator {
+class LocationService {
+  baseUrl = "api.openweathermap.org/data/2.5/forecast/daily?";
   constructor(long, lat) {
     this.long = long;
     this.lat = lat;
@@ -38,6 +40,14 @@ class LocationValidator {
     const options = { units: "kilometers" };
     return turf.distance(from, to, options);
   }
+
+  getUrl(currentCity) {
+    const [long, lat] = currentCity.location.coordinates;
+    return (
+      this.baseUrl +
+      `lat=${lat}&lon=${long}&appid=${process.env.WEATHER_API_KEY}`
+    );
+  }
 }
 
-module.exports = { LocationValidator };
+module.exports = { LocationService };
