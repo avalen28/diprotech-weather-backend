@@ -1,18 +1,43 @@
 const locationsData = require("../data/locations_ES.json");
+const turf = require("@turf/turf");
 
 class LocationValidator {
-  constructor(lat, long) {
-    this.lat = lat;
+  constructor(long, lat) {
     this.long = long;
+    this.lat = lat;
+    this.coordinates = [this.long, this.lat];
   }
 
   areValidCoordinates = () =>
-    this.isValidLatitude(this.lat) && this.isValidLongitude(this.long);
+    this.isValidLongitude(this.long) && this.isValidLatitude(this.lat);
 
   isValidLatitude = () => !isNaN(this.lat) && this.lat >= -90 && this.lat <= 90;
 
   isValidLongitude = () =>
     !isNaN(this.long) && this.long >= -180 && this.long <= 180;
+
+  findNearbyLocations = (amount) => {
+    return locationsData
+      .sort(
+        (a, b) =>
+          this.calculateDistanceBetweenTwoCities(
+            this.coordinates,
+            a.location.coordinates
+          ) -
+          this.calculateDistanceBetweenTwoCities(
+            this.coordinates,
+            b.location.coordinates
+          )
+      )
+      .slice(0, amount);
+  };
+
+  calculateDistanceBetweenTwoCities(firstCityCoor, secondCityCoor) {
+    const from = turf.point(firstCityCoor);
+    const to = turf.point(secondCityCoor);
+    const options = { units: "kilometers" };
+    return turf.distance(from, to, options);
+  }
 }
 
 module.exports = { LocationValidator };

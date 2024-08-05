@@ -7,6 +7,7 @@
     "dev": "nodemon ./bin/www"
   },
   "dependencies": {
+    "@turf/turf": "^7.0.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
@@ -14,7 +15,7 @@
     "jade": "~1.11.0",
     "morgan": "~1.9.1"
   },
-    "devDependencies": {
+  "devDependencies": {
     "nodemon": "^2.0.16"
   }
 }

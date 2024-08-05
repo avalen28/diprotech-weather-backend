@@ -2,14 +2,16 @@ const router = require("express").Router();
 const { LocationValidator } = require("../utils/location");
 
 /* GET weather data*/
-router.get("/:lat/:long", function (req, res) {
-  const { lat, long } = req.params;
-  const locationValidator = new LocationValidator(lat,long)
+router.get("/:long/:lat", function (req, res) {
+  const { long, lat } = req.params;
+  const locationValidator = new LocationValidator(long, lat);
   if (!locationValidator.areValidCoordinates()) {
     res.send({ message: "invalid coordinates" });
     return;
   }
-  res.send({ message: "valid" });
+  const [currentCity, ...nearbyCities] =
+    locationValidator.findNearbyLocations(11);
+  res.send({ currentCity, nearbyCities });
 });
 
 module.exports = router;
