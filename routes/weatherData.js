@@ -1,6 +1,7 @@
 const router = require("express").Router();
-const { default: axios } = require("axios");
+const { axios } = require("axios");
 const { LocationService } = require("../utils/location");
+const { storeData } = require("../utils/storage");
 
 /* GET weather data*/
 router.get("/:long/:lat", async function (req, res) {
@@ -18,6 +19,7 @@ router.get("/:long/:lat", async function (req, res) {
   try {
     const url = locationService.getUrl(currentCity);
     const weatherDataFromAPI = await axios.get(url);
+    storeData(weatherDataFromAPI);
 
     res.status(200).json({ weatherData: weatherDataFromAPI, nearbyCities });
   } catch (error) {
