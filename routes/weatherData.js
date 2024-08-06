@@ -19,9 +19,9 @@ router.get("/:long/:lat", async function (req, res) {
   try {
     const url = locationService.getUrl(currentCity);
     const weatherDataFromAPI = await axios.get(url);
-    storeData(weatherDataFromAPI);
+    storeData(weatherDataFromAPI.data);
 
-    res.status(200).json({ weatherData: weatherDataFromAPI, nearbyCities });
+    res.status(200).json({ weatherData: weatherDataFromAPI.data, nearbyCities });
   } catch (error) {
     console.error(error);
     res

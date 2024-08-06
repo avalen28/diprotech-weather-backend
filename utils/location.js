@@ -1,9 +1,7 @@
-require("dotenv").config();
 const locationsData = require("../data/locations_ES.json");
 const turf = require("@turf/turf");
 
 class LocationService {
-  baseUrl = "https://api.openweathermap.org/data/2.5/forecast/daily?";
   constructor(long, lat) {
     this.long = long;
     this.lat = lat;
@@ -31,7 +29,7 @@ class LocationService {
             b.location.coordinates
           )
       )
-        .slice(0, amount);
+      .slice(0, amount);
   };
 
   calculateDistanceBetweenTwoCities(firstCityCoor, secondCityCoor) {
@@ -43,10 +41,7 @@ class LocationService {
 
   getUrl(currentCity) {
     const [long, lat] = currentCity.location.coordinates;
-    return (
-      this.baseUrl +
-      `lat=${lat}&lon=${long}&cnt=10&appid=${process.env.WEATHER_API_KEY}`
-    );
+    return `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${long}&cnt=10&appid=dc24858a79705a23d41eafe47e6fc8f4`;
   }
 }
 

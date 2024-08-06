@@ -7,14 +7,14 @@ const storeData = (dataToStore) => {
   const historicWeatherDataPath = path.join(parentDir, "historic-weather-data");
   const filePath = path.join(
     historicWeatherDataPath,
-    `${today}_${dataToTest.city.name}.json`
+    `${today}_${dataToStore.city}.json`
   );
 
   if (fs.existsSync(filePath)) {
     return;
   }
 
-  fs.writeFileSync(filePath, JSON.stringify(dataToTest, null, 2), "utf-8");
+  fs.writeFileSync(filePath, JSON.stringify(dataToStore, null, 2), "utf-8");
 };
 
 module.exports = { storeData };
