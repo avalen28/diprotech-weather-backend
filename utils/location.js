@@ -41,7 +41,7 @@ class LocationService {
 
   getUrl(currentCity) {
     const [long, lat] = currentCity.location.coordinates;
-    return `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${long}&cnt=10&appid=dc24858a79705a23d41eafe47e6fc8f4`;
+    return `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${long}&cnt=10&appid=${process.env.OPENWEATHER_API_KEY}`;
   }
 }
 
