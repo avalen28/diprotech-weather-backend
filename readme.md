@@ -50,7 +50,7 @@ To run the backend locally, follow these steps:
 4. Create a `.env` file in the root directory of the project and add your OpenWeather API key:
 
    ```plaintext
-
+   ORIGIN='http://localhost:3000'
    OPENWEATHER_API_KEY=your_api_key_here
    ```
 
@@ -78,5 +78,7 @@ For example, specific coordinates from Santa Coloma de Gramenet (my home) were u
 - Type Safety: Implement type safety by defining interfaces for the objects expected from OpenWeather. This will help ensure that the data conforms to the expected structure and improve code reliability.
 
 - Enhanced Error Responses: Expand the range of response types to provide more detailed explanations for errors. This will improve error handling and contribute to a better user experience in the frontend by providing clearer information about issues.
+
+- Cache responses: Use the weather forecast stored in the historic weather data to avoid calling OpenWeather API multiple times if we already have the weather data for that location and date stored in our future DB.
 
 Happy coding! 💻
