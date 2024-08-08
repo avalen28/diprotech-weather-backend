@@ -19,12 +19,17 @@ The backend is developed using the following technologies:
 
 - **Base URL**: `http://localhost:8000`
 - **Endpoint**: `/weather-data/:long/:lat`
+
   - **Method**: GET
   - **Description**: This endpoint receives longitude and latitude as parameters and performs the following actions:
     - Validates the coordinates to ensure they are real.
     - Retrieves the nearest locations from a predefined JSON list.
     - Queries the OpenWeather API to obtain the weather forecast.
     - Returns the weather data along with the nearest locations.
+
+- **Endpoint**: `/docs`
+
+  -**Description**: Show the documentation about function and Classes
 
 ## Validation and Error Handling ⚠️
 
